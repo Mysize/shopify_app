@@ -9,7 +9,7 @@ module ShopifyApp
     attr_accessor :secret
     attr_accessor :scope
     attr_accessor :embedded_app
-    alias_method  :embedded_app?, :embedded_app
+    alias_method :embedded_app?, :embedded_app
     attr_accessor :webhooks
     attr_accessor :scripttags
     attr_accessor :after_authenticate_job
@@ -27,6 +27,9 @@ module ShopifyApp
 
     # allow namespacing webhook jobs
     attr_accessor :webhook_jobs_namespace
+
+    # allow enabling of same site none on cookies
+    attr_accessor :enable_same_site_none
 
     def initialize
       @root_url = '/'
@@ -55,6 +58,10 @@ module ShopifyApp
 
     def has_scripttags?
       scripttags.present?
+    end
+
+    def enable_same_site_none
+      @enable_same_site_none.nil? ? embedded_app? : @enable_same_site_none
     end
   end
 
